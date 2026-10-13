@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CameraFrameModule } from './camera-frame/camera-frame.module';
 import { CartModule } from './cart/cart.module';
+import { CyberRunnerModule } from './cyber-runner/cyber-runner.module';
 import { HomeComponent } from './home/home.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 
@@ -27,6 +28,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
     HttpClientModule,
     CameraFrameModule,
     CartModule,
+    CyberRunnerModule,
   ],
   providers: [
     DataService,

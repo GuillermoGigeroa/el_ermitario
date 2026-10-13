@@ -1,0 +1,20 @@
+<div id="game-container">
+  <canvas #gameCanvas width="800" height="400"></canvas>
+
+  <div id="menuScreen" class="ui-screen" [class.hidden]="currentGameState !== GameState.MENU">
+    <h1>CYBER RUNNER</h1>
+    <p>AI Blueprint Protocol Inicializado</p>
+    <button id="startBtn" (click)="startGame()">Iniciar Sistema</button>
+    <div class="controls-info">
+      Controles:<br>
+      [W] / [Flecha Arriba] / [Espacio] -> SALTAR<br>
+      [S] / [Flecha Abajo] -> AGACHARSE
+    </div>
+  </div>
+
+  <div id="gameOverScreen" class="ui-screen" [class.hidden]="currentGameState !== GameState.GAMEOVER">
+    <h1>CONEXIÓN PERDIDA</h1>
+    <p id="finalScoreText">Puntuación: {{score | number:'1.0-0'}}</p>
+    <button id="restartBtn" (click)="restartGame()">Reiniciar Núcleo</button>
+  </div>
+</div>
