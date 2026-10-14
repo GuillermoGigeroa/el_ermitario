@@ -1,7 +1,7 @@
 <div class="home-container">
     <div class="main">
         @for (item of items; track item.image) {
-            <div class="card">
+            <div class="card" [id]="item.id">
                 <img [src]="item.image" [alt]="item.text" class="card-img-top">
                 <button class="btn-favorite" (click)="toggleFavorite(item)" [class.active]="isFavorite(item)" title="Favorito">
                     <i class="bi" [class.bi-heart]="!isFavorite(item)" [class.bi-heart-fill]="isFavorite(item)"></i>

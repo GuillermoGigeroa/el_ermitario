@@ -51,6 +51,93 @@ $text-color: rgba(229, 222, 193, 1);
     margin-top: 4.5em;
 }
 
+.search-container {
+    position: relative;
+}
+
+.search-results {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 1100;
+    width: min(420px, 90vw);
+    max-height: 60vh;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0.5rem;
+    list-style: none;
+    background: var(--color-beige);
+    border: 2px solid var(--color-cyan-light);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(50, 24, 62, 0.3);
+}
+
+.search-result {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.65rem;
+    text-align: left;
+    color: var(--color-purple-dark);
+    background: transparent;
+    border: 0;
+    border-radius: 6px;
+
+    &:hover,
+    &:focus-visible {
+        background: rgba(110, 198, 217, 0.35);
+    }
+}
+
+.search-result-image {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.search-result-copy {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.search-result-title {
+    font-family: var(--font-bold);
+}
+
+.search-result-description {
+    overflow: hidden;
+    font-size: 0.8rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.search-result-category {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    opacity: 0.75;
+}
+
+.search-message {
+    padding: 0.75rem;
+    color: var(--color-purple-dark);
+}
+
+.search-error {
+    color: var(--color-red-pink);
+}
+
+@media (max-width: 800px) {
+    .header.game-route {
+        width: 100vh;
+        transform-origin: top left;
+        transform: rotate(90deg) translateY(-100%);
+    }
+}
+
 .container-fluid {
     padding-right: 2px !important;
     padding-left: 2px !important;
@@ -171,6 +258,12 @@ $text-color: rgba(229, 222, 193, 1);
         margin-top: 1rem;
         padding-top: 1rem;
         border-top: 1px solid var(--color-cyan-light);
+    }
+
+    .search-results {
+        left: 0;
+        right: auto;
+        width: 100%;
     }
 
     .form-control {

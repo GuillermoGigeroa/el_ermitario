@@ -14,11 +14,14 @@ export class PhysicsService {
     }
   }
 
-  applyJump(player: Player, config: GameConfig): void {
+  applyJump(player: Player, config: GameConfig): boolean {
     if (player.isGrounded && !player.isDucking) {
       player.vy = config.jumpForce;
       player.isGrounded = false;
+      return true;
     }
+
+    return false;
   }
 
   checkGroundCollision(player: Player, groundY: number): void {

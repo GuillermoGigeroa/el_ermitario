@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" [class.game-route]="isGameRoute">
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <div class="isologotipo">
@@ -24,9 +24,37 @@
                         <a class="nav-link" [routerLink]="['/game']" routerLinkActive="active" (click)="onNavigation()">{{menu.JUEGO}}</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                <form class="d-flex search-container" role="search" (ngSubmit)="submitSearch()">
+                    <input
+                        class="form-control me-2"
+                        type="search"
+                        name="search"
+                        placeholder="Buscar"
+                        aria-label="Buscar en El Ermitario"
+                        aria-controls="search-results"
+                        [attr.aria-expanded]="searchQuery.trim().length > 0"
+                        autocomplete="off"
+                        [(ngModel)]="searchQuery"
+                        (ngModelChange)="onSearchChange($event)"
+                        (keydown.escape)="clearSearch()">
                     <button class="btn btn-outline-dark" type="submit">Buscar</button>
+                    <ul class="search-results" id="search-results" *ngIf="searchQuery.trim()">
+                        <li *ngIf="isSearching" class="search-message" role="status">Buscando...</li>
+                        <li *ngIf="searchError" class="search-message search-error" role="alert">{{searchError}}</li>
+                        <li *ngIf="!isSearching && !searchError && searchResults.length === 0" class="search-message" role="status">
+                            No se encontraron resultados.
+                        </li>
+                        <li *ngFor="let result of searchResults">
+                            <button type="button" class="search-result" (click)="selectSearchResult(result, cart)">
+                                <img *ngIf="result.image" [src]="result.image" [alt]="result.title" class="search-result-image">
+                                <span class="search-result-copy">
+                                    <span class="search-result-title">{{result.title}}</span>
+                                    <span class="search-result-description">{{result.description}}</span>
+                                </span>
+                                <span class="search-result-category">{{result.category}}</span>
+                            </button>
+                        </li>
+                    </ul>
                 </form>
                 <div class="cart-icon-container ms-3">
                     <button class="btn-cart" (click)="cart.toggleCart()">

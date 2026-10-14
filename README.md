@@ -21,6 +21,10 @@ El proyecto es una aplicación Spring Boot 3.5.10 con frontend Angular 21.2.15 q
 - **Testing**: Jasmine + Karma
 - **State Management**: RxJS 7.8.1
 
+### Configurar la búsqueda del sitio
+
+Los resultados del campo **Buscar** se administran en `src/assets/config/search-index.json`. Cada elemento de `entries` define `id`, `title`, `description`, `category` y `keywords`; usa `route` para enlazar una página, `fragment` para señalar una sección con ese `id`, `image` para mostrar una miniatura o `action: "cart"` para abrir el carrito. Añade o edita entradas en ese JSON para incluir todo el contenido que quieras que encuentre la búsqueda. Las coincidencias ignoran mayúsculas y tildes.
+
 # Requisitos
 
 - **Node.js** 18 o superior

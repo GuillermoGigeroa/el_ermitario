@@ -49,8 +49,11 @@ export class GameEngineService {
   private animationFrameId: number = 0;
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
-  private playerImage: HTMLImageElement | null = null;
+  private jumpImage: HTMLImageElement | null = null;
+  private duckImage: HTMLImageElement | null = null;
   private backgroundImage: HTMLImageElement | null = null;
+  private audioContext: AudioContext | null = null;
+  private audioUnavailableLogged = false;
 
   constructor(
     private ngZone: NgZone,
@@ -67,9 +70,11 @@ export class GameEngineService {
   }
 
   private loadGameImages(): void {
-    // Load player image
-    this.playerImage = new Image();
-    this.playerImage.src = 'assets/images/Personaje.jpg';
+    this.jumpImage = new Image();
+    this.jumpImage.src = 'assets/images/Ermitario_2.jpg';
+
+    this.duckImage = new Image();
+    this.duckImage.src = 'assets/images/Ermitario_1.jpg';
 
     // Load background image
     this.backgroundImage = new Image();
@@ -115,7 +120,9 @@ export class GameEngineService {
 
     if (key === 'w' || key === 'W' || key === 'ArrowUp' || key === ' ') {
       this.keys.jump = true;
-      this.physicsService.applyJump(this.player, this.config);
+      if (this.physicsService.applyJump(this.player, this.config)) {
+        this.playJumpSound();
+      }
       this.createExplosion(this.player.x + this.player.width / 2, this.player.y + this.player.height, '#8B4513');
     }
     if (key === 's' || key === 'S' || key === 'ArrowDown') {
@@ -142,6 +149,34 @@ export class GameEngineService {
 
   getGlobalSpeed(): number {
     return this.globalSpeed;
+  }
+
+  private playJumpSound(): void {
+    if (typeof window.AudioContext === 'undefined') {
+      if (!this.audioUnavailableLogged) {
+        console.warn('Jump sound unavailable: Web Audio API is not supported');
+        this.audioUnavailableLogged = true;
+      }
+      return;
+    }
+
+    const audioContext = this.audioContext ?? new AudioContext();
+    this.audioContext = audioContext;
+
+    const now = audioContext.currentTime;
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    oscillator.type = 'triangle';
+    oscillator.frequency.setValueAtTime(580, now);
+    oscillator.frequency.exponentialRampToValueAtTime(240, now + 0.16);
+    gain.gain.setValueAtTime(0.14, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+    oscillator.start(now);
+    oscillator.stop(now + 0.16);
   }
 
   private resetPlayer(): void {
@@ -268,9 +303,10 @@ export class GameEngineService {
     if (!this.ctx) return;
     this.ctx.save();
 
-    if (this.playerImage && this.playerImage.complete) {
+    const playerImage = this.player.isDucking ? this.duckImage : this.jumpImage;
+    if (playerImage?.complete && playerImage.naturalWidth > 0) {
       // Draw image maintaining aspect ratio
-      const imgAspect = this.playerImage.width / this.playerImage.height;
+      const imgAspect = playerImage.width / playerImage.height;
       const playerAspect = this.player.width / this.player.height;
 
       let drawWidth, drawHeight, drawX, drawY;
@@ -296,7 +332,7 @@ export class GameEngineService {
 
       this.ctx.shadowBlur = 20;
       this.ctx.shadowColor = 'rgba(50, 24, 62, 0.5)';
-      this.ctx.drawImage(this.playerImage, drawX, drawY, drawWidth, drawHeight);
+      this.ctx.drawImage(playerImage, drawX, drawY, drawWidth, drawHeight);
     } else {
       // Fallback to colored rectangle if image not loaded
       this.ctx.strokeStyle = '#32183e';
@@ -376,6 +412,12 @@ export class GameEngineService {
 
   cleanup(): void {
     this.stopGame();
+    if (this.audioContext) {
+      void this.audioContext.close().catch(error => {
+        console.warn('Failed to close jump audio context', error);
+      });
+      this.audioContext = null;
+    }
     this.canvas = null;
     this.ctx = null;
   }
