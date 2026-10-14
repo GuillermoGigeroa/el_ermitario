@@ -1,0 +1,114 @@
+{
+  "entries": [
+    {
+      "id": "home",
+      "title": "Inicio y catálogo",
+      "description": "Explora los stickers disponibles en El Ermitario.",
+      "category": "Página",
+      "keywords": ["inicio", "catalogo", "stickers", "calcomanias", "adhesivos"],
+      "route": "/"
+    },
+    {
+      "id": "camera",
+      "title": "Cámara, marcos y filtros",
+      "description": "Toma fotos y personalízalas con marcos y filtros.",
+      "category": "Herramienta",
+      "keywords": ["camara", "foto", "fotos", "marco", "marcos", "filtro", "filtros", "neon", "madera", "polaroid", "dorado"],
+      "route": "/camera-frame"
+    },
+    {
+      "id": "favorites",
+      "title": "Favoritos",
+      "description": "Consulta tus stickers y fotos guardados.",
+      "category": "Página",
+      "keywords": ["favoritos", "guardados", "stickers", "fotos"],
+      "route": "/favoritos"
+    },
+    {
+      "id": "game",
+      "title": "La cabra que corre",
+      "description": "Juega a esquivar obstáculos y consigue puntos.",
+      "category": "Juego",
+      "keywords": ["juego", "cabra", "correr", "obstaculos", "saltar", "puntaje"],
+      "route": "/game"
+    },
+    {
+      "id": "cart",
+      "title": "Carrito de compras",
+      "description": "Abre el carrito para revisar tu compra.",
+      "category": "Compras",
+      "keywords": ["carrito", "compras", "checkout", "pedido"],
+      "action": "cart"
+    },
+    {
+      "id": "sticker-1",
+      "title": "Sticker 1",
+      "description": "Sticker disponible en el catálogo.",
+      "category": "Sticker",
+      "keywords": ["sticker", "calcomania", "adhesivo", "uno", "1"],
+      "route": "/",
+      "fragment": "sticker-1",
+      "image": "assets/images/1.png"
+    },
+    {
+      "id": "sticker-2",
+      "title": "Sticker 2",
+      "description": "Sticker disponible en el catálogo.",
+      "category": "Sticker",
+      "keywords": ["sticker", "calcomania", "adhesivo", "dos", "2"],
+      "route": "/",
+      "fragment": "sticker-2",
+      "image": "assets/images/2.png"
+    },
+    {
+      "id": "sticker-3",
+      "title": "Sticker 3",
+      "description": "Sticker disponible en el catálogo.",
+      "category": "Sticker",
+      "keywords": ["sticker", "calcomania", "adhesivo", "tres", "3"],
+      "route": "/",
+      "fragment": "sticker-3",
+      "image": "assets/images/3.png"
+    },
+    {
+      "id": "sticker-4",
+      "title": "Sticker 4",
+      "description": "Sticker disponible en el catálogo.",
+      "category": "Sticker",
+      "keywords": ["sticker", "calcomania", "adhesivo", "cuatro", "4"],
+      "route": "/",
+      "fragment": "sticker-4",
+      "image": "assets/images/4.png"
+    },
+    {
+      "id": "sticker-5",
+      "title": "Sticker 5",
+      "description": "Sticker disponible en el catálogo.",
+      "category": "Sticker",
+      "keywords": ["sticker", "calcomania", "adhesivo", "cinco", "5"],
+      "route": "/",
+      "fragment": "sticker-5",
+      "image": "assets/images/5.png"
+    },
+    {
+      "id": "sticker-6",
+      "title": "Sticker 6",
+      "description": "Sticker disponible en el catálogo.",
+      "category": "Sticker",
+      "keywords": ["sticker", "calcomania", "adhesivo", "seis", "6"],
+      "route": "/",
+      "fragment": "sticker-6",
+      "image": "assets/images/6.png"
+    },
+    {
+      "id": "sticker-7",
+      "title": "Sticker 7",
+      "description": "Sticker disponible en el catálogo.",
+      "category": "Sticker",
+      "keywords": ["sticker", "calcomania", "adhesivo", "siete", "7"],
+      "route": "/",
+      "fragment": "sticker-7",
+      "image": "assets/images/7.png"
+    }
+  ]
+}
