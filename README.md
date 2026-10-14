@@ -16,7 +16,7 @@ El proyecto es una aplicación Spring Boot 3.5.10 con frontend Angular 21.2.15 q
 
 - **Framework**: Angular 21.2.15
 - **Node**: Recomendado >=18
-- **Package Manager**: npm
+- **Package Manager**: pnpm
 - **Estilos**: Bootstrap 5.2.3 + SCSS
 - **Testing**: Jasmine + Karma
 - **State Management**: RxJS 7.8.1
@@ -68,23 +68,23 @@ El backend se levanta en `http://localhost:9090`
 
 #### Instalar dependencias
 ```bash
-npm install
+pnpm install
 ```
 
 #### Ejecutar en desarrollo
 ```bash
-npm start
+pnpm start
 # o
-ng start -o
+pnpm ng start -o
 ```
 
 El frontend se levanta en `http://localhost:4200` (con proxy al backend en `localhost:9090`)
 
 #### Compilar para producción
 ```bash
-npm run build
+pnpm run build
 # o
-ng build --base-href /sticker_ecommerce/
+pnpm ng build --base-href /sticker_ecommerce/
 ```
 
 Los archivos compilados se generan en la carpeta `docs/`
@@ -297,11 +297,11 @@ ng test
 - `mvnw.cmd test` - Ejecutar tests
 
 ### Frontend
-- `npm start` - Iniciar servidor de desarrollo
-- `npm run build` - Compilar para producción
-- `npm run build-java` - Compilar sin base-href
-- `ng test` - Ejecutar tests unitarios
-- `ng lint` - Ejecutar linter
+- `pnpm start` - Iniciar servidor de desarrollo
+- `pnpm run build` - Compilar para producción
+- `pnpm run build-java` - Compilar sin base-href
+- `pnpm ng test` - Ejecutar tests unitarios
+- `pnpm ng lint` - Ejecutar linter
 
 ## 🔧 Configuración
 
@@ -334,9 +334,9 @@ spring.h2.console.enabled=true
 ## 🚨 Troubleshooting
 
 ### Error: "ng: command not found"
-Solución: Usa `npx ng` en lugar de `ng` o instala Angular CLI globalmente:
+Solución: Usa `pnpm dlx ng` en lugar de `ng` o instala Angular CLI globalmente:
 ```bash
-npm install -g @angular/cli
+pnpm add -g @angular/cli
 ```
 
 ### Error: "Failed to clean project"

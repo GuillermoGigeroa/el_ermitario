@@ -11,7 +11,7 @@ import { StickerAsset } from '../models/sticker-asset.model';
 export class EntityManagerService {
   createObstacle(type: ObstacleType, canvasWidth: number, sticker?: StickerAsset): Obstacle {
     if (sticker) {
-      const scale = 0.5;
+      const scale = 0.08;
       const width = sticker.image.width * scale;
       const height = sticker.image.height * scale;
       let y: number;
