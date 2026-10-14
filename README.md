@@ -2,7 +2,7 @@
 
 Este es un proyecto personal, una aplicación fullstack para un ecommerce de stickers para unos amigos.
 
-Demo en vivo: https://guillermogigeroa.github.io/sticker_ecommerce/
+Demo en vivo: https://guillermogigeroa.github.io/el_ermitario/
 
 El proyecto es una aplicación Spring Boot 3.5.10 con frontend Angular 21.2.15 que incluye:
 - REST API completa para gestión de productos y carrito de compras
@@ -88,7 +88,7 @@ El frontend se levanta en `http://localhost:4200` (con proxy al backend en `loca
 ```bash
 pnpm run build
 # o
-pnpm ng build --base-href /sticker_ecommerce/
+pnpm ng build --base-href /el_ermitario/
 ```
 
 Los archivos compilados se generan en la carpeta `docs/`

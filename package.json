@@ -1,11 +1,11 @@
 {
-  "name": "sticker_ecommerce",
+  "name": "el_ermitario",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
     "start-proxy": "ng serve --proxy-config proxy.conf.json -o",
-    "build": "ng build --base-href /sticker_ecommerce/",
+    "build": "ng build --base-href /el_ermitario/",
     "build-java": "ng build",
     "lint": "ng lint",
     "watch": "ng build --watch --configuration development",
