@@ -68,20 +68,37 @@ export class CyberRunnerComponent implements AfterViewInit, OnDestroy {
 
     const rect = canvas.getBoundingClientRect();
 
+    let clientX: number;
     let clientY: number;
 
     if (event instanceof MouseEvent) {
+      clientX = event.clientX;
       clientY = event.clientY;
     } else {
       // Touch event - use the first touch
+      clientX = event.touches[0].clientX;
       clientY = event.touches[0].clientY;
     }
 
-    // Calculate Y position relative to canvas
-    const relativeY = clientY - rect.top;
+    // Calculate position relative to canvas center
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
 
-    // Check if touch/click is in the top half of the canvas
-    if (relativeY < rect.height / 2) {
+    // Check if canvas is rotated (landscape mode on mobile)
+    const isRotated = rect.width > rect.height;
+
+    let shouldJump: boolean;
+
+    if (isRotated) {
+      // When rotated 90°, the top half corresponds to the right half visually
+      // So we check if the touch is on the right side of the canvas
+      shouldJump = clientX > centerX;
+    } else {
+      // Normal orientation - check if touch is in top half
+      shouldJump = clientY < centerY;
+    }
+
+    if (shouldJump) {
       // Trigger jump using the same logic as keyboard
       this.gameEngineService.handleKeyDown(' ');
     }
