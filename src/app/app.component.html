@@ -12,16 +12,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['']" routerLinkActive="active">{{menu.INICIO}}</a>
+                        <a class="nav-link" [routerLink]="['']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="onNavigation()">{{menu.INICIO}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/camera-frame']" routerLinkActive="active">{{menu.CAMARA}}</a>
+                        <a class="nav-link" [routerLink]="['/camera-frame']" routerLinkActive="active" (click)="onNavigation()">{{menu.CAMARA}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/favoritos']" routerLinkActive="active">{{menu.FAVORITOS}}</a>
+                        <a class="nav-link" [routerLink]="['/favoritos']" routerLinkActive="active" (click)="onNavigation()">{{menu.FAVORITOS}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/game']" routerLinkActive="active">{{menu.JUEGO}}</a>
+                        <a class="nav-link" [routerLink]="['/game']" routerLinkActive="active" (click)="onNavigation()">{{menu.JUEGO}}</a>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">

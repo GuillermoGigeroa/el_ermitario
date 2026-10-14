@@ -31,11 +31,11 @@ export class GameEngineService {
   private player: Player = {
     baseX: 100,
     x: 100,
-    y: 240,
-    baseWidth: 80,
-    baseHeight: 120,
-    width: 80,
-    height: 120,
+    y: 0,
+    baseWidth: 100,
+    baseHeight: 100,
+    width: 100,
+    height: 100,
     vy: 0,
     isGrounded: true,
     isDucking: false,
@@ -245,21 +245,19 @@ export class GameEngineService {
     // Draw UI with better contrast and visibility
     this.ctx.save();
 
-    // Score - beige with cyan shadow for contrast
     this.ctx.shadowColor = 'rgba(110, 198, 217, 0.8)';
     this.ctx.shadowBlur = 4;
     this.ctx.shadowOffsetX = 2;
     this.ctx.shadowOffsetY = 2;
-    this.ctx.fillStyle = '#e5dec1';
+    this.ctx.fillStyle = '#e4445e';
     this.ctx.font = 'bold 24px "Gobold Extra2", sans-serif';
     this.ctx.fillText(`SCORE: ${Math.floor(this.score)}`, 20, 40);
 
-    // Speed - red-pink with beige shadow for better contrast
     this.ctx.shadowColor = 'rgba(229, 222, 193, 0.8)';
     this.ctx.shadowBlur = 4;
     this.ctx.shadowOffsetX = 2;
     this.ctx.shadowOffsetY = 2;
-    this.ctx.fillStyle = '#e4445e';
+    this.ctx.fillStyle = '#e4445fb7';
     this.ctx.font = 'bold 24px "Gobold Extra2", sans-serif';
     this.ctx.fillText(`SPEED: ${this.globalSpeed.toFixed(1)}x`, 640, 40);
 
