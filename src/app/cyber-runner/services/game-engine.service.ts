@@ -31,11 +31,11 @@ export class GameEngineService {
   private player: Player = {
     baseX: 100,
     x: 100,
-    y: 300,
-    baseWidth: 40,
-    baseHeight: 60,
-    width: 40,
-    height: 60,
+    y: 240,
+    baseWidth: 80,
+    baseHeight: 120,
+    width: 80,
+    height: 120,
     vy: 0,
     isGrounded: true,
     isDucking: false,
@@ -49,6 +49,8 @@ export class GameEngineService {
   private animationFrameId: number = 0;
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
+  private playerImage: HTMLImageElement | null = null;
+  private backgroundImage: HTMLImageElement | null = null;
 
   constructor(
     private ngZone: NgZone,
@@ -60,7 +62,18 @@ export class GameEngineService {
   initialize(canvas: HTMLCanvasElement): void {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
+    this.loadGameImages();
     this.renderInitialCanvas();
+  }
+
+  private loadGameImages(): void {
+    // Load player image
+    this.playerImage = new Image();
+    this.playerImage.src = 'assets/images/Personaje.jpg';
+
+    // Load background image
+    this.backgroundImage = new Image();
+    this.backgroundImage.src = 'assets/images/Fondo.jpg';
   }
 
   async preloadAssets(): Promise<void> {
@@ -103,7 +116,7 @@ export class GameEngineService {
     if (key === 'w' || key === 'W' || key === 'ArrowUp' || key === ' ') {
       this.keys.jump = true;
       this.physicsService.applyJump(this.player, this.config);
-      this.createExplosion(this.player.x + this.player.width / 2, this.player.y + this.player.height, '#ff007f');
+      this.createExplosion(this.player.x + this.player.width / 2, this.player.y + this.player.height, '#8B4513');
     }
     if (key === 's' || key === 'S' || key === 'ArrowDown') {
       this.keys.duck = true;
@@ -133,7 +146,7 @@ export class GameEngineService {
 
   private resetPlayer(): void {
     this.player.x = this.player.baseX;
-    this.player.y = 300;
+    this.player.y = 240;
     this.player.width = this.player.baseWidth;
     this.player.height = this.player.baseHeight;
     this.player.vy = 0;
@@ -165,7 +178,7 @@ export class GameEngineService {
     const groundY = 360 - this.player.height;
     this.physicsService.updatePlayerDuckState(this.player, this.keys.duck, groundY);
     this.physicsService.applyGravity(this.player, this.config);
-    this.physicsService.checkGroundCollision(this.player, 360 - this.player.height);
+    this.physicsService.checkGroundCollision(this.player, groundY);
 
     this.obstacleTimer += deltaTime;
     if (this.entityManagerService.shouldSpawnObstacle(this.obstacleTimer, this.nextSpawnTime)) {
@@ -205,31 +218,99 @@ export class GameEngineService {
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.ctx.strokeStyle = '#323454';
-    this.ctx.lineWidth = 4;
+    // Draw background image
+    if (this.backgroundImage && this.backgroundImage.complete) {
+      this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvas.width, this.canvas.height);
+    } else {
+      // Fallback to solid color
+      this.ctx.fillStyle = '#87CEEB';
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    // Draw ground line (cyan with better visibility)
+    this.ctx.strokeStyle = '#6ec6d9';
+    this.ctx.lineWidth = 6;
+    this.ctx.shadowColor = 'rgba(50, 24, 62, 0.3)';
+    this.ctx.shadowBlur = 5;
     this.ctx.beginPath();
     this.ctx.moveTo(0, 360);
     this.ctx.lineTo(this.canvas.width, 360);
     this.ctx.stroke();
+    this.ctx.shadowBlur = 0;
 
     this.drawPlayer();
     this.obstacles.forEach(obs => this.drawObstacle(obs));
     this.particles.forEach(p => this.drawParticle(p));
 
-    this.ctx.fillStyle = '#ffffff';
-    this.ctx.font = 'bold 18px monospace';
-    this.ctx.fillText(`SCORE: ${Math.floor(this.score)}`, 20, 35);
-    this.ctx.fillStyle = '#00fff2';
-    this.ctx.fillText(`SPEED: ${this.globalSpeed.toFixed(1)}x`, 680, 35);
+    // Draw UI with better contrast and visibility
+    this.ctx.save();
+
+    // Score - beige with cyan shadow for contrast
+    this.ctx.shadowColor = 'rgba(110, 198, 217, 0.8)';
+    this.ctx.shadowBlur = 4;
+    this.ctx.shadowOffsetX = 2;
+    this.ctx.shadowOffsetY = 2;
+    this.ctx.fillStyle = '#e5dec1';
+    this.ctx.font = 'bold 24px "Gobold Extra2", sans-serif';
+    this.ctx.fillText(`SCORE: ${Math.floor(this.score)}`, 20, 40);
+
+    // Speed - red-pink with beige shadow for better contrast
+    this.ctx.shadowColor = 'rgba(229, 222, 193, 0.8)';
+    this.ctx.shadowBlur = 4;
+    this.ctx.shadowOffsetX = 2;
+    this.ctx.shadowOffsetY = 2;
+    this.ctx.fillStyle = '#e4445e';
+    this.ctx.font = 'bold 24px "Gobold Extra2", sans-serif';
+    this.ctx.fillText(`SPEED: ${this.globalSpeed.toFixed(1)}x`, 640, 40);
+
+    this.ctx.restore();
   }
 
   private drawPlayer(): void {
     if (!this.ctx) return;
     this.ctx.save();
-    this.ctx.shadowBlur = 15;
-    this.ctx.shadowColor = this.player.color;
-    this.ctx.fillStyle = this.player.color;
-    this.ctx.fillRect(this.player.x, this.player.y, this.player.width, this.player.height);
+
+    if (this.playerImage && this.playerImage.complete) {
+      // Draw image maintaining aspect ratio
+      const imgAspect = this.playerImage.width / this.playerImage.height;
+      const playerAspect = this.player.width / this.player.height;
+
+      let drawWidth, drawHeight, drawX, drawY;
+
+      if (imgAspect > playerAspect) {
+        // Image is wider than player - fit to width
+        drawWidth = this.player.width;
+        drawHeight = this.player.width / imgAspect;
+        drawX = this.player.x;
+        drawY = this.player.y + (this.player.height - drawHeight) / 2;
+      } else {
+        // Image is taller than player - fit to height
+        drawHeight = this.player.height;
+        drawWidth = this.player.height * imgAspect;
+        drawX = this.player.x + (this.player.width - drawWidth) / 2;
+        drawY = this.player.y;
+      }
+
+      // Add subtle border for better visibility
+      this.ctx.strokeStyle = '#32183e';
+      this.ctx.lineWidth = 3;
+      this.ctx.strokeRect(drawX - 2, drawY - 2, drawWidth + 4, drawHeight + 4);
+
+      this.ctx.shadowBlur = 20;
+      this.ctx.shadowColor = 'rgba(50, 24, 62, 0.5)';
+      this.ctx.drawImage(this.playerImage, drawX, drawY, drawWidth, drawHeight);
+    } else {
+      // Fallback to colored rectangle if image not loaded
+      this.ctx.strokeStyle = '#32183e';
+      this.ctx.lineWidth = 3;
+      this.ctx.strokeRect(this.player.x - 2, this.player.y - 2, this.player.width + 4, this.player.height + 4);
+
+      this.ctx.shadowBlur = 20;
+      this.ctx.shadowColor = 'rgba(50, 24, 62, 0.5)';
+      this.ctx.fillStyle = '#6ec6d9';
+      this.ctx.fillRect(this.player.x, this.player.y, this.player.width, this.player.height);
+    }
+
     this.ctx.restore();
   }
 
@@ -273,14 +354,26 @@ export class GameEngineService {
 
   private renderInitialCanvas(): void {
     if (!this.ctx || !this.canvas) return;
-    this.ctx.fillStyle = '#141624';
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.strokeStyle = '#323454';
-    this.ctx.lineWidth = 4;
+
+    // Draw background image
+    if (this.backgroundImage && this.backgroundImage.complete) {
+      this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvas.width, this.canvas.height);
+    } else {
+      // Fallback to solid color
+      this.ctx.fillStyle = '#87CEEB';
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    // Draw ground line (cyan with better visibility)
+    this.ctx.strokeStyle = '#6ec6d9';
+    this.ctx.lineWidth = 6;
+    this.ctx.shadowColor = 'rgba(50, 24, 62, 0.3)';
+    this.ctx.shadowBlur = 5;
     this.ctx.beginPath();
     this.ctx.moveTo(0, 360);
     this.ctx.lineTo(this.canvas.width, 360);
     this.ctx.stroke();
+    this.ctx.shadowBlur = 0;
   }
 
   cleanup(): void {

@@ -1,20 +1,20 @@
 /* --- Variables y Estilos Generales --- */
 :root {
-  --bg-main: #0f141c;
-  --bg-card: #18202c;
-  --bg-card-hover: #222c3c;
-  --border-color: rgba(255, 255, 255, 0.08);
-  --text-primary: #f0f4f8;
-  --text-secondary: #94a3b8;
-  --accent-color: #6366f1;
-  --accent-hover: #4f46e5;
-  --accent-glow: rgba(99, 102, 241, 0.4);
+  --bg-main: #32183e;
+  --bg-card: #4a2558;
+  --bg-card-hover: #5c2d6b;
+  --border-color: rgba(229, 222, 193, 0.2);
+  --text-primary: #e5dec1;
+  --text-secondary: #6ec6d9;
+  --accent-color: #e4445e;
+  --accent-hover: #ff6b6b;
+  --accent-glow: rgba(228, 68, 94, 0.4);
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 22px;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-hand: 'Caveat', cursive, sans-serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-serif: 'Gobold Extra2', Georgia, sans-serif;
 }
 
 * {

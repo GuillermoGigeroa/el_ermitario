@@ -10,4 +10,5 @@ export interface Player {
   isGrounded: boolean;
   isDucking: boolean;
   color: string;
+  image?: HTMLImageElement;
 }
