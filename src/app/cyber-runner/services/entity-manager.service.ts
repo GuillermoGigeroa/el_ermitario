@@ -3,12 +3,38 @@ import { Obstacle } from '../models/obstacle.model';
 import { ObstacleType } from '../enums/obstacle-type.enum';
 import { Particle } from '../models/particle.model';
 import { GameConfig } from '../models/game-config.model';
+import { StickerAsset } from '../models/sticker-asset.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EntityManagerService {
-  createObstacle(type: ObstacleType, canvasWidth: number): Obstacle {
+  createObstacle(type: ObstacleType, canvasWidth: number, sticker?: StickerAsset): Obstacle {
+    if (sticker) {
+      const scale = 0.5;
+      const width = sticker.image.width * scale;
+      const height = sticker.image.height * scale;
+      let y: number;
+
+      if (type === ObstacleType.LOW) {
+        y = 360 - height;
+      } else {
+        y = 250;
+      }
+
+      return {
+        type,
+        x: canvasWidth,
+        y,
+        width,
+        height,
+        color: '#ffffff',
+        image: sticker.image,
+        isSticker: true,
+        stickerName: sticker.name
+      };
+    }
+
     const width = 30 + Math.random() * 20;
     let y: number;
     let height: number;

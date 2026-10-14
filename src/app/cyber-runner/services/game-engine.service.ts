@@ -6,6 +6,7 @@ import { Obstacle } from '../models/obstacle.model';
 import { Particle } from '../models/particle.model';
 import { PhysicsService } from './physics.service';
 import { EntityManagerService } from './entity-manager.service';
+import { StickerLoaderService } from './sticker-loader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +53,8 @@ export class GameEngineService {
   constructor(
     private ngZone: NgZone,
     private physicsService: PhysicsService,
-    private entityManagerService: EntityManagerService
+    private entityManagerService: EntityManagerService,
+    private stickerLoaderService: StickerLoaderService
   ) {}
 
   initialize(canvas: HTMLCanvasElement): void {
@@ -61,19 +63,25 @@ export class GameEngineService {
     this.renderInitialCanvas();
   }
 
-  startGame(): void {
-    this.obstacles = [];
-    this.particles = [];
-    this.score = 0;
-    this.globalSpeed = this.config.baseSpeed;
-    this.obstacleTimer = 0;
-    this.nextSpawnTime = this.config.spawnIntervalBase;
-    this.gameState = GameState.PLAYING;
-    this.resetPlayer();
+  async preloadAssets(): Promise<void> {
+    await this.stickerLoaderService.preloadImages();
+  }
 
-    this.lastTime = performance.now();
-    this.ngZone.runOutsideAngular(() => {
-      this.gameLoop();
+  startGame(): void {
+    this.preloadAssets().then(() => {
+      this.obstacles = [];
+      this.particles = [];
+      this.score = 0;
+      this.globalSpeed = this.config.baseSpeed;
+      this.obstacleTimer = 0;
+      this.nextSpawnTime = this.config.spawnIntervalBase;
+      this.gameState = GameState.PLAYING;
+      this.resetPlayer();
+
+      this.lastTime = performance.now();
+      this.ngZone.runOutsideAngular(() => {
+        this.gameLoop();
+      });
     });
   }
 
@@ -162,8 +170,9 @@ export class GameEngineService {
     this.obstacleTimer += deltaTime;
     if (this.entityManagerService.shouldSpawnObstacle(this.obstacleTimer, this.nextSpawnTime)) {
       const type = this.entityManagerService.getRandomObstacleType();
+      const sticker = this.stickerLoaderService.getRandomSticker();
       if (this.canvas) {
-        this.obstacles.push(this.entityManagerService.createObstacle(type, this.canvas.width));
+        this.obstacles.push(this.entityManagerService.createObstacle(type, this.canvas.width, sticker || undefined));
       }
       this.obstacleTimer = 0;
       this.nextSpawnTime = this.entityManagerService.calculateNextSpawnTime(this.config.spawnIntervalBase);
@@ -229,8 +238,19 @@ export class GameEngineService {
     this.ctx.save();
     this.ctx.shadowBlur = 10;
     this.ctx.shadowColor = obstacle.color;
-    this.ctx.fillStyle = obstacle.color;
-    this.ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+
+    if (obstacle.image && obstacle.isSticker) {
+      this.ctx.drawImage(
+        obstacle.image,
+        obstacle.x,
+        obstacle.y,
+        obstacle.width,
+        obstacle.height
+      );
+    } else {
+      this.ctx.fillStyle = obstacle.color;
+      this.ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+    }
     this.ctx.restore();
   }
 

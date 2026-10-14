@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 import { GameEngineService } from '../../services/game-engine.service';
+import { StickerLoaderService } from '../../services/sticker-loader.service';
 import { GameState } from '../../enums/game-state.enum';
 
 @Component({
@@ -16,7 +17,10 @@ export class CyberRunnerComponent implements AfterViewInit, OnDestroy {
   score: number = 0;
   globalSpeed: number = 0;
 
-  constructor(private gameEngineService: GameEngineService) {}
+  constructor(
+    private gameEngineService: GameEngineService,
+    private stickerLoaderService: StickerLoaderService
+  ) {}
 
   ngAfterViewInit(): void {
     this.gameEngineService.initialize(this.gameCanvas.nativeElement);

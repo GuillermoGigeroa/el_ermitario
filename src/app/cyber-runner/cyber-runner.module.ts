@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { CyberRunnerComponent } from './components/cyber-runner/cyber-runner.component';
 
@@ -8,7 +9,8 @@ import { CyberRunnerComponent } from './components/cyber-runner/cyber-runner.com
     CyberRunnerComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   exports: [
     CyberRunnerComponent

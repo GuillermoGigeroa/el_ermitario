@@ -7,4 +7,7 @@ export interface Obstacle {
   width: number;
   height: number;
   color: string;
+  image?: HTMLImageElement;
+  isSticker?: boolean;
+  stickerName?: string;
 }
