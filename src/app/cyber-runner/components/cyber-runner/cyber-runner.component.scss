@@ -5,10 +5,14 @@
   overflow: hidden;
   margin: 20px auto;
   max-width: 800px;
+  width: 100%;
+  aspect-ratio: 2 / 1;
 }
 
 canvas {
   display: block;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(to bottom, #6ec6d9, #e5dec1);
 }
 
@@ -16,8 +20,8 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
-  width: 800px;
-  height: 400px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,4 +96,76 @@ button {
   border-radius: 8px;
   border: 2px solid #6ec6d9;
   font-family: var(--font-light);
+}
+
+// Responsive styles for mobile with larger screens (658x675 or larger)
+@media (min-width: 658px) and (min-height: 675px) and (max-width: 768px) {
+  #game-container {
+    margin: 10px;
+    aspect-ratio: auto;
+    height: 80vh;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+  }
+
+  button {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+
+  .controls-info {
+    font-size: 0.9rem;
+    padding: 12px 20px;
+  }
+}
+
+// Responsive styles for mobile
+@media (max-width: 768px) {
+  #game-container {
+    margin: 10px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .controls-info {
+    font-size: 0.8rem;
+    padding: 10px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+
+  .controls-info {
+    font-size: 0.7rem;
+    padding: 8px 12px;
+  }
 }

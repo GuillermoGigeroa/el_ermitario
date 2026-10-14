@@ -23,6 +23,10 @@ export class CyberRunnerComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   ngAfterViewInit(): void {
+    // Set internal canvas resolution (fixed for consistent rendering)
+    this.gameCanvas.nativeElement.width = 800;
+    this.gameCanvas.nativeElement.height = 400;
+
     this.gameEngineService.initialize(this.gameCanvas.nativeElement);
   }
 
@@ -38,6 +42,49 @@ export class CyberRunnerComponent implements AfterViewInit, OnDestroy {
   @HostListener('window:keyup', ['$event'])
   onKeyUp(event: KeyboardEvent): void {
     this.gameEngineService.handleKeyUp(event.key);
+  }
+
+  @HostListener('mousedown', ['$event'])
+  onMouseDown(event: MouseEvent): void {
+    this.handleJump(event);
+  }
+
+  @HostListener('touchstart', ['$event'])
+  onTouchStart(event: TouchEvent): void {
+    this.handleJump(event);
+  }
+
+  private handleJump(event: MouseEvent | TouchEvent): void {
+    // Check if the event target is the canvas or contains the canvas
+    const canvas = this.gameCanvas.nativeElement;
+    const target = event.target as HTMLElement;
+
+    if (!canvas.contains(target) && target !== canvas) {
+      return;
+    }
+
+    // Prevent default to avoid double triggering on touch devices
+    event.preventDefault();
+
+    const rect = canvas.getBoundingClientRect();
+
+    let clientY: number;
+
+    if (event instanceof MouseEvent) {
+      clientY = event.clientY;
+    } else {
+      // Touch event - use the first touch
+      clientY = event.touches[0].clientY;
+    }
+
+    // Calculate Y position relative to canvas
+    const relativeY = clientY - rect.top;
+
+    // Check if touch/click is in the top half of the canvas
+    if (relativeY < rect.height / 2) {
+      // Trigger jump using the same logic as keyboard
+      this.gameEngineService.handleKeyDown(' ');
+    }
   }
 
   startGame(): void {

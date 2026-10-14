@@ -1,5 +1,5 @@
 <div id="game-container">
-  <canvas #gameCanvas width="800" height="400"></canvas>
+  <canvas #gameCanvas></canvas>
 
   <div id="menuScreen" class="ui-screen" [class.hidden]="currentGameState !== GameState.MENU">
     <h1>La cabra que corre</h1>
@@ -7,7 +7,7 @@
     <button id="startBtn" (click)="startGame()">Iniciar Juego</button>
     <div class="controls-info">
       Controles:<br>
-      [W] / [Flecha Arriba] / [Espacio] -> SALTAR<br>
+      [W] / [Flecha Arriba] / [Espacio] / Tocar parte superior -> SALTAR<br>
       [S] / [Flecha Abajo] -> AGACHARSE
     </div>
   </div>
