@@ -1,1 +1,1 @@
-npm run build-java;rm -r ./src/main/resources/static;cp -r ./docs/. ./src/main/resources/static;cp ./src/favicon.ico ./src/main/resources/static;
+pnpm run build-java;rm -r ./src/main/resources/static;cp -r ./docs/. ./src/main/resources/static;cp ./src/favicon.ico ./src/main/resources/static;

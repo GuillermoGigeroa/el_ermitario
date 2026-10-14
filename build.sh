@@ -1,1 +1,1 @@
-./build-java.sh;npm run build;git add .;git commit -m "build '/docs' files";git push;
+./build-java.sh;pnpm run build;git add .;git commit -m "build '/docs' files";git push;
