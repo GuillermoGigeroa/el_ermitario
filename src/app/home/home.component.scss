@@ -1,37 +1,86 @@
 .home-container {
-    padding: 20px;
-    padding-top: 5em;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 36px 24px 48px;
+}
+
+.catalog-intro {
+    max-width: 720px;
+    margin: 0 auto 28px;
+    text-align: center;
+
+    h1 {
+        margin: 6px 0 8px;
+        color: var(--color-beige);
+        font-family: var(--font-bold);
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+    }
+
+    p {
+        margin: 0;
+        color: var(--color-cyan-light);
+    }
+}
+
+.catalog-eyebrow {
+    color: var(--color-red-pink);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
 }
 
 .main {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
     gap: 20px;
-    padding: 20px;
+    padding: 0 8px;
 }
 
 .card {
     border: 1px solid var(--color-cyan-light);
-    border-radius: 8px;
+    border-radius: 14px;
     overflow: hidden;
-    transition: transform 0.2s;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
     position: relative;
     background: var(--color-purple-dark);
 
     &:hover {
         transform: translateY(-5px);
-        box-shadow: 0 4px 8px rgba(110, 198, 217, 0.3);
+        border-color: var(--color-red-pink);
+        box-shadow: 0 8px 24px rgba(110, 198, 217, 0.24);
     }
 }
 
 .card-img-top {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
 }
 
+.logo-card .card-img-top,
+.character-card .card-img-top {
+    object-fit: contain;
+    background: rgba(229, 222, 193, 0.08);
+}
+
+.logo-card .card-img-top {
+    padding: 24px;
+}
+
+.logo-card.logo-white .card-img-top {
+    background: var(--color-purple-dark);
+}
+
+.logo-card.logo-black .card-img-top {
+    background: var(--color-beige);
+}
+
 .card-body {
-    padding: 15px;
+    min-height: 76px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
 }
 
 .card-text {
@@ -39,6 +88,7 @@
     font-weight: 500;
     color: var(--color-beige);
     font-family: var(--font-light);
+    line-height: 1.4;
 }
 
 .btn-favorite {
@@ -71,5 +121,20 @@
 
     i {
         pointer-events: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .home-container {
+        padding: 28px 14px 36px;
+    }
+
+    .main {
+        gap: 14px;
+        padding: 0;
+    }
+
+    .card-img-top {
+        height: 190px;
     }
 }

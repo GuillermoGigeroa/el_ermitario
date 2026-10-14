@@ -5,10 +5,13 @@ class Item {
     id: string;
     image: string;
     text: string;
-    constructor(id: string, image: string, text: string) {
+    variant: 'sticker' | 'logo' | 'character';
+
+    constructor(id: string, image: string, text: string, variant: 'sticker' | 'logo' | 'character' = 'sticker') {
         this.id = id;
         this.image = image;
         this.text = text;
+        this.variant = variant;
     }
 }
 
@@ -32,6 +35,12 @@ export class HomeComponent {
         this.items.push(new Item('sticker-5', 'assets/images/5.png', 'Sticker 5'));
         this.items.push(new Item('sticker-6', 'assets/images/6.png', 'Sticker 6'));
         this.items.push(new Item('sticker-7', 'assets/images/7.png', 'Sticker 7'));
+        this.items.push(new Item('brand-logo-white', 'assets/images/logo-blanco.png', 'Logo blanco de El Ermitario', 'logo'));
+        this.items.push(new Item('brand-logo-color', 'assets/images/logo-color.png', 'Logo a color de El Ermitario', 'logo'));
+        this.items.push(new Item('brand-logo-black', 'assets/images/logo-negro.png', 'Logo negro de El Ermitario', 'logo'));
+        this.items.push(new Item('ermitario-character', 'assets/images/Personaje.jpg', 'El Ermitario, la cabra del banjo', 'character'));
+        this.items.push(new Item('ermitario-1', 'assets/images/Ermitario_1.jpg', 'El Ermitario en el camino', 'character'));
+        this.items.push(new Item('ermitario-2', 'assets/images/Ermitario_2.jpg', 'El Ermitario en movimiento', 'character'));
     }
 
     toggleFavorite(item: Item): void {

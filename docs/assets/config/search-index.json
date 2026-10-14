@@ -5,7 +5,7 @@
       "title": "Inicio y catálogo",
       "description": "Explora los stickers disponibles en El Ermitario.",
       "category": "Página",
-      "keywords": ["inicio", "catalogo", "stickers", "calcomanias", "adhesivos"],
+      "keywords": ["inicio", "catalogo", "stickers", "calcomanias", "adhesivos", "ermitario", "cabra", "personaje", "logo", "logos"],
       "route": "/"
     },
     {
@@ -13,7 +13,7 @@
       "title": "Cámara, marcos y filtros",
       "description": "Toma fotos y personalízalas con marcos y filtros.",
       "category": "Herramienta",
-      "keywords": ["camara", "foto", "fotos", "marco", "marcos", "filtro", "filtros", "neon", "madera", "polaroid", "dorado"],
+      "keywords": ["camara", "foto", "fotos", "retrato", "selfie", "fotocabina", "temporizador", "marco", "marcos", "filtro", "filtros", "neon", "madera", "polaroid", "dorado"],
       "route": "/camera-frame"
     },
     {
@@ -109,6 +109,66 @@
       "route": "/",
       "fragment": "sticker-7",
       "image": "assets/images/7.png"
+    },
+    {
+      "id": "brand-logo-white",
+      "title": "Logo blanco de El Ermitario",
+      "description": "Versión blanca del logo de El Ermitario, parte de la colección de imágenes de marca.",
+      "category": "Logo",
+      "keywords": ["logo", "blanco", "blanca", "marca", "identidad", "ermitario", "cabras", "emblema"],
+      "route": "/",
+      "fragment": "brand-logo-white",
+      "image": "assets/images/logo-blanco.png"
+    },
+    {
+      "id": "brand-logo-color",
+      "title": "Logo a color de El Ermitario",
+      "description": "Logo a color de El Ermitario con su emblema de cabra.",
+      "category": "Logo",
+      "keywords": ["logo", "color", "colores", "marca", "identidad", "ermitario", "cabra", "emblema"],
+      "route": "/",
+      "fragment": "brand-logo-color",
+      "image": "assets/images/logo-color.png"
+    },
+    {
+      "id": "brand-logo-black",
+      "title": "Logo negro de El Ermitario",
+      "description": "Versión negra del logo de El Ermitario, parte de la colección de imágenes de marca.",
+      "category": "Logo",
+      "keywords": ["logo", "negro", "negra", "marca", "identidad", "ermitario", "cabra", "emblema"],
+      "route": "/",
+      "fragment": "brand-logo-black",
+      "image": "assets/images/logo-negro.png"
+    },
+    {
+      "id": "ermitario-character",
+      "title": "El Ermitario, la cabra del banjo",
+      "description": "Retrato hiperrealista del personaje principal: una cabra que camina sobre sus patas traseras y toca el banjo con las delanteras.",
+      "category": "Personaje",
+      "keywords": ["ermitario", "personaje", "cabra", "banjo", "musica", "hiperrealista", "retrato", "cuatro patas", "patas traseras", "patas delanteras"],
+      "route": "/",
+      "fragment": "ermitario-character",
+      "image": "assets/images/Personaje.jpg"
+    },
+    {
+      "id": "ermitario-1",
+      "title": "El Ermitario en el camino",
+      "description": "El Ermitario sentado en un sendero de montaña, con su banjo.",
+      "category": "Personaje",
+      "keywords": ["ermitario", "cabra", "banjo", "sendero", "camino", "montana", "musica", "foto", "personaje"],
+      "route": "/",
+      "fragment": "ermitario-1",
+      "image": "assets/images/Ermitario_1.jpg"
+    },
+    {
+      "id": "ermitario-2",
+      "title": "El Ermitario en movimiento",
+      "description": "El Ermitario salta en el aire mientras toca su banjo.",
+      "category": "Personaje",
+      "keywords": ["ermitario", "cabra", "banjo", "salto", "saltando", "aire", "movimiento", "musica", "personaje"],
+      "route": "/",
+      "fragment": "ermitario-2",
+      "image": "assets/images/Ermitario_2.jpg"
     }
   ]
 }

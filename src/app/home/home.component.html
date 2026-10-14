@@ -1,7 +1,18 @@
 <div class="home-container">
-    <div class="main">
+    <header class="catalog-intro">
+        <span class="catalog-eyebrow">El universo del Ermitario</span>
+        <h1>Catálogo de stickers</h1>
+        <p>Conoce al Ermitario y descubre sus logos e ilustraciones.</p>
+    </header>
+    <div class="main" aria-label="Stickers e imágenes de El Ermitario">
         @for (item of items; track item.image) {
-            <div class="card" [id]="item.id">
+            <div
+                class="card"
+                [class.logo-card]="item.variant === 'logo'"
+                [class.logo-white]="item.id === 'brand-logo-white'"
+                [class.logo-black]="item.id === 'brand-logo-black'"
+                [class.character-card]="item.variant === 'character'"
+                [id]="item.id">
                 <img [src]="item.image" [alt]="item.text" class="card-img-top">
                 <button class="btn-favorite" (click)="toggleFavorite(item)" [class.active]="isFavorite(item)" title="Favorito">
                     <i class="bi" [class.bi-heart]="!isFavorite(item)" [class.bi-heart-fill]="isFavorite(item)"></i>

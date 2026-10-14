@@ -1,13 +1,13 @@
 /* --- Variables y Estilos Generales --- */
-:root {
-  --bg-main: #32183e;
-  --bg-card: #4a2558;
+.app-container {
+  --bg-main: rgba(50, 24, 62, 0.92);
+  --bg-card: rgba(74, 37, 88, 0.88);
   --bg-card-hover: #5c2d6b;
-  --border-color: rgba(229, 222, 193, 0.2);
+  --border-color: rgba(110, 198, 217, 0.3);
   --text-primary: #e5dec1;
   --text-secondary: #6ec6d9;
   --accent-color: #e4445e;
-  --accent-hover: #ff6b6b;
+  --accent-hover: #f25b73;
   --accent-glow: rgba(228, 68, 94, 0.4);
   --radius-sm: 8px;
   --radius-md: 14px;
@@ -15,30 +15,25 @@
   --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-hand: 'Caveat', cursive, sans-serif;
   --font-serif: 'Gobold Extra2', Georgia, sans-serif;
-}
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-.app-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 24px 20px;
+  padding: 28px 24px;
   font-family: var(--font-sans);
   background-color: var(--bg-main);
   color: var(--text-primary);
-  min-height: 100vh;
+  min-height: calc(100vh - 90px);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  box-shadow: 0 18px 50px rgba(20, 9, 25, 0.32);
 }
 
 /* --- Encabezado --- */
 .app-header {
   margin-bottom: 28px;
-  padding-bottom: 18px;
+  padding: 0 4px 18px;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -56,9 +51,15 @@
   gap: 14px;
 }
 
-.logo-icon {
-  font-size: 36px;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+.brand-logo {
+  width: 54px;
+  height: 54px;
+  padding: 6px;
+  object-fit: contain;
+  background: var(--text-primary);
+  border: 1px solid rgba(110, 198, 217, 0.45);
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
 }
 
 .logo-area h1 {
@@ -82,18 +83,26 @@
   border-radius: 999px;
   font-size: 13px;
   font-weight: 600;
-  background: rgba(34, 197, 94, 0.15);
-  color: #4ade80;
-  border: 1px solid rgba(34, 197, 94, 0.3);
+  background: rgba(110, 198, 217, 0.12);
+  color: var(--text-secondary);
+  border: 1px solid rgba(110, 198, 217, 0.36);
 }
 
 .badge-pulse {
-  animation: pulseGreen 2s infinite;
+  animation: pulseBadge 2s infinite;
 }
 
-@keyframes pulseGreen {
+@keyframes pulseBadge {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  box-shadow: 0 0 8px var(--accent-color);
 }
 
 /* --- Layout Principal --- */
@@ -151,7 +160,7 @@ video {
 .camera-offline {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, #1e293b, #090d16);
+  background: radial-gradient(circle at center, rgba(74, 37, 88, 0.94), rgba(31, 14, 39, 0.98));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -512,20 +521,20 @@ video {
   }
 
   &.btn-capture {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    background: linear-gradient(135deg, #e95a70 0%, #c82f4b 100%);
     color: white;
     font-size: 16px;
     font-weight: 700;
     padding: 14px 28px;
     border-radius: 999px;
-    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45);
+    box-shadow: 0 6px 20px rgba(228, 68, 94, 0.35);
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;
 
     &:hover {
       transform: scale(1.04);
-      box-shadow: 0 8px 25px rgba(220, 38, 38, 0.6);
+      box-shadow: 0 8px 25px rgba(228, 68, 94, 0.52);
     }
 
     &:active {
@@ -546,11 +555,16 @@ video {
   cursor: pointer;
   font-size: 14px;
   color: var(--text-secondary);
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
 
   input {
     cursor: pointer;
     width: 16px;
     height: 16px;
+    accent-color: var(--accent-color);
   }
 }
 
@@ -568,7 +582,7 @@ video {
   padding: 20px;
 
   &.help-card {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(229, 222, 193, 0.045);
   }
 }
 
@@ -590,5 +604,31 @@ video {
 
   strong {
     color: var(--text-primary);
+  }
+}
+
+@media (max-width: 576px) {
+  .app-container {
+    margin: 14px;
+    padding: 20px 14px;
+    min-height: auto;
+    border-radius: 16px;
+  }
+
+  .app-header {
+    margin-bottom: 22px;
+  }
+
+  .brand-logo {
+    width: 46px;
+    height: 46px;
+  }
+
+  .logo-area {
+    gap: 10px;
+  }
+
+  .logo-area h1 {
+    font-size: 20px;
   }
 }
