@@ -25,9 +25,20 @@
                     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
                     <button class="btn btn-outline-dark" type="submit">Buscar</button>
                 </form>
+                <div class="cart-icon-container ms-3">
+                    <button class="btn-cart" (click)="cart.toggleCart()">
+                        <span class="cart-icon">🛒</span>
+                        <span class="cart-badge" *ngIf="(itemCount$ | async) as count; else noBadge">
+                            {{ count }}
+                        </span>
+                        <ng-template #noBadge></ng-template>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 </div>
 <div class="header-bottom"></div>
 <router-outlet></router-outlet>
+<app-cart #cart></app-cart>
+<app-confetti [trigger]="showConfetti"></app-confetti>

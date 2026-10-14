@@ -1,0 +1,11 @@
+<div class="confetti-container" [class.active]="trigger">
+  <div *ngFor="let particle of particles" 
+       class="confetti-particle"
+       [style.left]="particle.left + '%'"
+       [style.backgroundColor]="particle.backgroundColor"
+       [style.animationDelay]="particle.animationDelay + 's'"
+       [style.animationDuration]="particle.animationDuration + 's'"
+       [style.width.px]="particle.size"
+       [style.height.px]="particle.size">
+  </div>
+</div>

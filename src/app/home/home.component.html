@@ -1,17 +1,21 @@
-<div class="main">
-    @for (item of items; track item.image) {
-        <div class="card">
-            <img [src]="item.image" [alt]="item.text" class="card-img-top">
-            <button class="btn-favorite" (click)="toggleFavorite(item)" [class.active]="isFavorite(item)" title="Favorito">
-                <i class="bi" [class.bi-heart]="!isFavorite(item)" [class.bi-heart-fill]="isFavorite(item)"></i>
-            </button>
-            <div class="card-body">
-                <p class="card-text">{{item.text}}</p>
+<div class="home-container">
+    <app-cyber-runner></app-cyber-runner>
+
+    <div class="main">
+        @for (item of items; track item.image) {
+            <div class="card">
+                <img [src]="item.image" [alt]="item.text" class="card-img-top">
+                <button class="btn-favorite" (click)="toggleFavorite(item)" [class.active]="isFavorite(item)" title="Favorito">
+                    <i class="bi" [class.bi-heart]="!isFavorite(item)" [class.bi-heart-fill]="isFavorite(item)"></i>
+                </button>
+                <div class="card-body">
+                    <p class="card-text">{{item.text}}</p>
+                </div>
             </div>
-        </div>
-    } @empty {
-        <div class="card">
-            <p class="card-text">No hay items para mostrar.</p>
-        </div>
-    }
+        } @empty {
+            <div class="card">
+                <p class="card-text">No hay items para mostrar.</p>
+            </div>
+        }
+    </div>
 </div>
