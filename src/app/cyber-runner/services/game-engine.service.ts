@@ -251,7 +251,7 @@ export class GameEngineService {
     this.ctx.shadowOffsetY = 2;
     this.ctx.fillStyle = '#e4445e';
     this.ctx.font = 'bold 24px "Gobold Extra2", sans-serif';
-    this.ctx.fillText(`SCORE: ${Math.floor(this.score)}`, 20, 40);
+    this.ctx.fillText(`Metros recorridos: ${Math.floor(this.score)} mts`, 20, 40);
 
     this.ctx.shadowColor = 'rgba(229, 222, 193, 0.8)';
     this.ctx.shadowBlur = 4;
@@ -259,7 +259,7 @@ export class GameEngineService {
     this.ctx.shadowOffsetY = 2;
     this.ctx.fillStyle = '#e4445fb7';
     this.ctx.font = 'bold 24px "Gobold Extra2", sans-serif';
-    this.ctx.fillText(`SPEED: ${this.globalSpeed.toFixed(1)}x`, 640, 40);
+    this.ctx.fillText(`Velocidad: ${this.globalSpeed.toFixed(1)} m/s`, 640, 40);
 
     this.ctx.restore();
   }
