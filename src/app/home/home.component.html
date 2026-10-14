@@ -13,7 +13,13 @@
                 [class.logo-black]="item.id === 'brand-logo-black'"
                 [class.character-card]="item.variant === 'character'"
                 [id]="item.id">
-                <img [src]="item.image" [alt]="item.text" class="card-img-top">
+                <button
+                    type="button"
+                    class="preview-trigger"
+                    (click)="openPreview(item)"
+                    [attr.aria-label]="'Ver ' + item.text + ' en pantalla completa'">
+                    <img [src]="item.image" [alt]="item.text" class="card-img-top">
+                </button>
                 <button class="btn-favorite" (click)="toggleFavorite(item)" [class.active]="isFavorite(item)" title="Favorito">
                     <i class="bi" [class.bi-heart]="!isFavorite(item)" [class.bi-heart-fill]="isFavorite(item)"></i>
                 </button>
@@ -27,4 +33,24 @@
             </div>
         }
     </div>
+
+    @if (previewItem; as preview) {
+        <div class="preview-overlay" (click)="closePreview()">
+            <div
+                class="preview-dialog"
+                role="dialog"
+                aria-modal="true"
+                [attr.aria-label]="preview.text"
+                (click)="$event.stopPropagation()">
+                <button
+                    type="button"
+                    class="preview-close"
+                    aria-label="Cerrar vista previa"
+                    (click)="closePreview()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <img [src]="preview.image" [alt]="preview.text" class="preview-image">
+            </div>
+        </div>
+    }
 </div>

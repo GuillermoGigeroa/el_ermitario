@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FavoritesService } from '../shared/services/favorites.service';
 
 class Item {
@@ -23,6 +23,8 @@ class Item {
 })
 export class HomeComponent {
     items: Array<Item> = new Array<Item>();
+    previewItem: Item | null = null;
+
     constructor(private favoritesService: FavoritesService) {
         this.generateObjects();
     }
@@ -41,6 +43,19 @@ export class HomeComponent {
         this.items.push(new Item('ermitario-character', 'assets/images/Personaje.jpg', 'El Ermitario, la cabra del banjo', 'character'));
         this.items.push(new Item('ermitario-1', 'assets/images/Ermitario_1.jpg', 'El Ermitario en el camino', 'character'));
         this.items.push(new Item('ermitario-2', 'assets/images/Ermitario_2.jpg', 'El Ermitario en movimiento', 'character'));
+    }
+
+    openPreview(item: Item): void {
+        this.previewItem = item;
+    }
+
+    closePreview(): void {
+        this.previewItem = null;
+    }
+
+    @HostListener('document:keydown.escape')
+    onEscape(): void {
+        this.closePreview();
     }
 
     toggleFavorite(item: Item): void {
